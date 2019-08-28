@@ -8,7 +8,7 @@ class IOPanel : View() {
     private var outputLine = 1
     val navigation: NavigationView by inject()
     val teams: TeamView by inject()
-    val prompt = label("What is ${outputLine.english()} line of output?") {
+    val prompt = label(outputLine.english()) {
         font = Font(16.0)
         alignment = Pos.CENTER
         padding = Insets(0.0, 0.0, 8.0, 0.0)
@@ -26,15 +26,19 @@ class IOPanel : View() {
 
     fun nextOutputLine(){
         outputLine += 1
-        prompt.text = "What is ${outputLine.english()} line of output?"
+        prompt.text = outputLine.english()
     }
 
     fun prevOutputLine(){
         outputLine -= 1
-        prompt.text = "What is ${outputLine.english()} line of output?"
+        prompt.text = outputLine.english()
     }
 
     companion object {
-        private fun Int.english() = listOf("first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth")[this - 1]
+        private fun Int.english() =
+            "What is the ${listOf("first", "second", "third", "fourth", 
+                "fifth", "sixth", "seventh", "eighth",
+                "ninth", "tenth", "eleventh", "twelfth",
+                "thirteenth", "fourteenth", "fifteenth", "sixteenth")[this - 1]} line of output?"
     }
 }
