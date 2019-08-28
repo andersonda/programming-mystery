@@ -2,7 +2,8 @@ import javafx.geometry.Pos
 import tornadofx.*
 
 class NavigationView : View() {
-    val questionView: QuestionView by inject()
+    val applicationView: ApplicationView by inject()
+
 
     override val root = vbox {
         alignment = Pos.CENTER
@@ -34,7 +35,7 @@ class NavigationView : View() {
             }
 
             button("New Question").setOnAction {
-                questionView.newQuestion()
+                applicationView.loadQuestion()
             }
         }
     }

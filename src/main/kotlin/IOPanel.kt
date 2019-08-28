@@ -5,8 +5,8 @@ import tornadofx.*
 
 class IOPanel : View() {
 
-    private val navigation = NavigationView()
-    private val teams = TeamView()
+    val navigation: NavigationView by inject()
+    val teams: TeamView by inject()
 
     override val root = vbox {
         paddingAll = 16

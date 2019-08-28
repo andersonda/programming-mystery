@@ -1,17 +1,27 @@
 import tornadofx.*
 
-class Application: App(ApplicationView::class){
-    init {
-
-    }
-}
+class Application: App(ApplicationView::class)
 
 class ApplicationView: View("Programming Mystery") {
     private val questionView: QuestionView by inject()
-    private val io = IOPanel()
+    val io: IOPanel by inject()
+    val progressBar = progressbar()
 
-    override val root = borderpane {
-        left = questionView.root
-        right = io.root
+    override val root = stackpane()
+
+    init {
+        root += progressBar
+        loadQuestion()
+        root += borderpane {
+            left = questionView.root
+            right = io.root
+        }
+    }
+
+    fun loadQuestion(){
+        progressBar.isVisible = true
+        questionView.chooseQuestion()
+        questionView.loadAnswers()
+        progressBar.isVisible = false
     }
 }
