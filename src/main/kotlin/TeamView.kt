@@ -1,35 +1,49 @@
+import javafx.scene.text.Font
 import tornadofx.*
 
 class TeamView : View() {
     // placeholder for prototype, eventually will read in teams from database
     override val root = gridpane{
+        hgap = 8.0
         row {
-            label("grupo dos")
+            label("grupo dos"){
+                font = Font(16.0)
+            }
             textfield()
             checkbox()
         }
         row {
-            label("polar bears")
+            label("polar bears"){
+                font = Font(16.0)
+            }
             textfield()
             checkbox()
         }
         row {
-            label("nike")
+            label("nike"){
+                font = Font(16.0)
+            }
             textfield()
             checkbox()
         }
         row {
-            label("coders")
+            label("coders"){
+                font = Font(16.0)
+            }
             textfield()
             checkbox()
         }
         row {
-            label("matrix")
+            label("matrix"){
+                font = Font(16.0)
+            }
             textfield()
             checkbox()
         }
         row {
-            label("unicorn")
+            label("unicorn"){
+                font = Font(16.0)
+            }
             textfield()
             checkbox()
         }

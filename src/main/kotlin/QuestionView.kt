@@ -1,41 +1,50 @@
-import javafx.scene.control.ProgressBar
-import javafx.scene.text.Font
+import javafx.embed.swing.SwingNode
+import java.awt.Font
 import tornadofx.*
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import javax.swing.JFileChooser
 import kotlin.system.exitProcess
+import org.fife.ui.rtextarea.RTextScrollPane
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea
+
 
 class QuestionView : View() {
 
     private var questionFile: File? = null
     private var answers: List<String>? = null
 
-    private val questionLabel = label() {
-        font = Font("Courier", 16.0)
-    }
+    private val questionCode = RSyntaxTextArea(50, 80)
 
     override val root = vbox{
         paddingAll = 16
     }
 
     init {
-        root += questionLabel
+        questionCode.syntaxEditingStyle = SyntaxConstants.SYNTAX_STYLE_JAVA
+        questionCode.isCodeFoldingEnabled = true
+        val default = RSyntaxTextArea.getDefaultFont()
+        questionCode.font = Font(default.fontName, default.style, 16)
+        val sp = RTextScrollPane(questionCode)
+        val swingNode = SwingNode()
+        swingNode.content = sp
+        root += swingNode
     }
 
     fun chooseQuestion() {
         val chooser = JFileChooser()
         chooser.currentDirectory = File("./src/main/java")
         if(chooser.showOpenDialog(null) == JFileChooser.CANCEL_OPTION){
-            if(questionLabel.text.isBlank()){
+            if(questionCode.text.isBlank()){
                 exitProcess(0)
             }
             return
         }
 
         questionFile = chooser.selectedFile
-        questionLabel.text = questionFile!!.readText()
+        questionCode.text = questionFile!!.readText()
         currentStage?.sizeToScene()
     }
 

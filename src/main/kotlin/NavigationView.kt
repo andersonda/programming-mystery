@@ -16,12 +16,18 @@ class NavigationView : View() {
 
             button("Prev") {
                 useMaxWidth = true
+                setOnAction {
+                    applicationView.io.prevOutputLine()
+                }
             }
             button("Check") {
                 useMaxWidth = true
             }
             button("Next") {
                 useMaxWidth = true
+                setOnAction {
+                    applicationView.io.nextOutputLine()
+                }
             }
         }
 

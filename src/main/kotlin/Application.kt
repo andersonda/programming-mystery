@@ -1,27 +1,28 @@
 import tornadofx.*
+import java.awt.Toolkit
+import java.awt.Toolkit.getDefaultToolkit
+
+
 
 class Application: App(ApplicationView::class)
 
 class ApplicationView: View("Programming Mystery") {
     private val questionView: QuestionView by inject()
     val io: IOPanel by inject()
-    val progressBar = progressbar()
 
-    override val root = stackpane()
+    override val root = borderpane()
 
     init {
-        root += progressBar
         loadQuestion()
-        root += borderpane {
-            left = questionView.root
-            right = io.root
-        }
+        root.left = questionView.root
+        root.right = io.root
+
+        val size = Toolkit.getDefaultToolkit().screenSize
+        setWindowMinSize(.67 * size.width, size.height)
     }
 
     fun loadQuestion(){
-        progressBar.isVisible = true
         questionView.chooseQuestion()
         questionView.loadAnswers()
-        progressBar.isVisible = false
     }
 }
