@@ -6,25 +6,34 @@ class NavigationView : View() {
         alignment = Pos.CENTER
         spacing = 8.0
 
-        button("Scores") {
-
-        }
         hbox {
             alignment = Pos.CENTER
             spacing = 8.0
+            paddingAll = 8.0
 
             button("Prev") {
-
+                useMaxWidth = true
             }
             button("Check") {
-
+                useMaxWidth = true
             }
             button("Next") {
-
+                useMaxWidth = true
             }
         }
-        button("New Question") {
 
+        hbox {
+            alignment = Pos.CENTER
+            spacing = 8.0
+            paddingAll = 8.0
+
+            button("Scores") {
+
+            }
+
+            button("New Question") {
+
+            }
         }
     }
 }
