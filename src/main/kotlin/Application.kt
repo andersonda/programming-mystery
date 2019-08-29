@@ -2,6 +2,7 @@ import tornadofx.*
 import java.awt.Toolkit
 import java.io.File
 import javax.swing.JFileChooser
+import javax.swing.filechooser.FileNameExtensionFilter
 import kotlin.system.exitProcess
 
 class Application: App(ApplicationView::class)
@@ -46,6 +47,8 @@ class ApplicationView: View("Programming Mystery") {
 
     fun loadTeams(){
         val chooser = JFileChooser()
+        chooser.dialogTitle = "Open Team Names"
+        chooser.fileFilter = FileNameExtensionFilter("TXT files", "txt")
         chooser.currentDirectory = File("./src/main/resources")
         if(chooser.showOpenDialog(null) != JFileChooser.CANCEL_OPTION) {
             val teams = chooser.selectedFile.readText().lines()
