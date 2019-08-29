@@ -36,6 +36,7 @@ class ApplicationView: View("Programming Mystery") {
         loadQuestion()
         root.children[1] += questionView.root
         root.children[1] += io.root
+        currentStage?.isMaximized = true;
     }
 
     fun loadQuestion(){

@@ -17,7 +17,7 @@ class QuestionView : View() {
     private var questionFile: File? = null
     private var answers: List<String>? = null
 
-    private val questionCode = RSyntaxTextArea(50, 80)
+    private val questionCode = RSyntaxTextArea(50, 200)
 
     override val root = vbox{
         paddingAll = 16
