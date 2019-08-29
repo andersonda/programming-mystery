@@ -9,6 +9,7 @@ import kotlin.system.exitProcess
 import org.fife.ui.rtextarea.RTextScrollPane
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea
+import java.awt.Dimension
 
 
 class QuestionView : View() {
@@ -25,9 +26,11 @@ class QuestionView : View() {
     init {
         questionCode.syntaxEditingStyle = SyntaxConstants.SYNTAX_STYLE_JAVA
         questionCode.isCodeFoldingEnabled = true
+
         val default = RSyntaxTextArea.getDefaultFont()
         questionCode.font = Font(default.fontName, default.style, 16)
         val sp = RTextScrollPane(questionCode)
+
         val swingNode = SwingNode()
         swingNode.content = sp
         root += swingNode
@@ -45,12 +48,10 @@ class QuestionView : View() {
 
         questionFile = chooser.selectedFile
         questionCode.text = questionFile!!.readText()
-        currentStage?.sizeToScene()
     }
 
     fun loadAnswers(){
         javac(questionFile!!)
-        println(questionFile!!.parentFile.name)
         val isInPackage = questionFile!!.readText().startsWith("package ${questionFile!!.parentFile.name}")
         answers = java(questionFile!!, isInPackage).lines()
         println(answers)

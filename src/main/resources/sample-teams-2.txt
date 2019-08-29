@@ -1,0 +1,4 @@
+dwarves
+hobbits
+elves
+men

@@ -1,8 +1,8 @@
 import tornadofx.*
 import java.awt.Toolkit
-import java.awt.Toolkit.getDefaultToolkit
-
-
+import java.io.File
+import javax.swing.JFileChooser
+import kotlin.system.exitProcess
 
 class Application: App(ApplicationView::class)
 
@@ -10,19 +10,45 @@ class ApplicationView: View("Programming Mystery") {
     private val questionView: QuestionView by inject()
     val io: IOPanel by inject()
 
-    override val root = borderpane()
+    override val root = borderpane {
+        top =  menubar {
+            menu("File") {
+                menu("Load"){
+                    item("Code").setOnAction {
+                        loadQuestion()
+                    }
+                    item("Teams").setOnAction {
+                        loadTeams()
+                    }
+                }
+                item("Quit").setOnAction {
+                    exitProcess(0)
+                }
+            }
+            menu("View"){
+                item("Scores")
+            }
+        }
+        center = hbox()
+    }
 
     init {
         loadQuestion()
-        root.left = questionView.root
-        root.right = io.root
-
-        val size = Toolkit.getDefaultToolkit().screenSize
-        setWindowMinSize(.67 * size.width, size.height)
+        root.children[1] += questionView.root
+        root.children[1] += io.root
     }
 
     fun loadQuestion(){
         questionView.chooseQuestion()
         questionView.loadAnswers()
+    }
+
+    fun loadTeams(){
+        val chooser = JFileChooser()
+        chooser.currentDirectory = File("./src/main/resources")
+        if(chooser.showOpenDialog(null) != JFileChooser.CANCEL_OPTION) {
+            val teams = chooser.selectedFile.readText().lines()
+            io.teams.populateTeams(teams)
+        }
     }
 }

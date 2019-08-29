@@ -1,6 +1,9 @@
 import javafx.geometry.Insets
+import javafx.geometry.Orientation
 import javafx.geometry.Pos
+import javafx.scene.paint.Color
 import javafx.scene.text.Font
+import javafx.scene.text.Text
 import tornadofx.*
 
 class IOPanel : View() {
@@ -8,37 +11,61 @@ class IOPanel : View() {
     private var outputLine = 1
     val navigation: NavigationView by inject()
     val teams: TeamView by inject()
-    val prompt = label(outputLine.english()) {
-        font = Font(16.0)
-        alignment = Pos.CENTER
+    val prompt = textflow{
         padding = Insets(0.0, 0.0, 8.0, 0.0)
+        text("What is the "){
+            font = Font(18.0)
+        }
+        text(outputLine.english()){
+            font = Font(18.0)
+            fill = Color.BLUE
+        }
+        text(" line of output?"){
+           font = Font(18.0)
+        }
     }
 
     override val root = vbox {
         paddingAll = 16
+        alignment = Pos.TOP_CENTER
     }
 
     init {
+        root += imageview("incognito-512.png"){
+            fitWidth = 256.0
+            fitHeight = 256.0
+        }
+        root += label("Programming Mystery"){
+            font = Font(20.0)
+        }
+        root += label("Version 0.1 ALPHA"){
+            font = Font(10.0)
+        }
+        root += separator(Orientation.HORIZONTAL){
+            paddingAll = 16
+        }
         root += prompt
         root += teams.root
+        root += separator(Orientation.HORIZONTAL){
+            paddingAll = 16
+        }
         root += navigation.root
     }
 
     fun nextOutputLine(){
         outputLine += 1
-        prompt.text = outputLine.english()
+        (prompt.children[1] as Text).text = outputLine.english()
     }
 
     fun prevOutputLine(){
         outputLine -= 1
-        prompt.text = outputLine.english()
+        (prompt.children[1] as Text).text = outputLine.english()
     }
 
     companion object {
-        private fun Int.english() =
-            "What is the ${listOf("first", "second", "third", "fourth", 
+        private fun Int.english() = listOf("first", "second", "third", "fourth",
                 "fifth", "sixth", "seventh", "eighth",
                 "ninth", "tenth", "eleventh", "twelfth",
-                "thirteenth", "fourteenth", "fifteenth", "sixteenth")[this - 1]} line of output?"
+                "thirteenth", "fourteenth", "fifteenth", "sixteenth")[this - 1]
     }
 }
