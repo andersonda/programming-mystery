@@ -1,11 +1,15 @@
 import javafx.scene.control.TextField
+import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.text.Font
 import javafx.scene.text.Text
 import tornadofx.*
 
 class TeamView : View() {
-    // placeholder for prototype, eventually will read in teams from database
+
+    val question: QuestionView by inject()
+    val io: IOPanel by inject()
+
     override val root = gridpane{
         hgap = 8.0
     }
@@ -27,6 +31,25 @@ class TeamView : View() {
             root.add(text, 0, index)
             root.add(TextField(), 1, index)
             root.add(image, 2, index)
+        }
+    }
+
+    fun checkAnswers() = root.children.forEachIndexed { index, node ->
+        if(node is TextField){
+            (root.children[index + 1] as ImageView).image = when(node.text){
+                question.answers!![io.outputLine] -> Image("checkmark.png")
+                else -> Image("x-mark.png")
+            }
+            // TODO: handle scoring
+        }
+    }
+
+    fun resetResponses() = root.children.forEach {
+        if(it is ImageView){
+            it.image = Image("question-mark.png")
+        }
+        else if(it is TextField){
+            it.text = ""
         }
     }
 }

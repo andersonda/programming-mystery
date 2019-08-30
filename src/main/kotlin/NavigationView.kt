@@ -2,8 +2,8 @@ import javafx.geometry.Pos
 import tornadofx.*
 
 class NavigationView : View() {
-    val applicationView: ApplicationView by inject()
-
+    val io: IOPanel by inject()
+    val teams: TeamView by inject()
 
     override val root = hbox {
         alignment = Pos.CENTER
@@ -13,16 +13,21 @@ class NavigationView : View() {
         button("Prev") {
             useMaxWidth = true
             setOnAction {
-                applicationView.io.prevOutputLine()
+                teams.resetResponses()
+                io.prevOutputLine()
             }
         }
         button("Check") {
             useMaxWidth = true
+            setOnAction {
+                teams.checkAnswers()
+            }
         }
         button("Next") {
             useMaxWidth = true
             setOnAction {
-                applicationView.io.nextOutputLine()
+                teams.resetResponses()
+                io.nextOutputLine()
             }
         }
     }
