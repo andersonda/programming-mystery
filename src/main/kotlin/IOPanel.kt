@@ -8,15 +8,17 @@ import tornadofx.*
 
 class IOPanel : View() {
 
-    private var outputLine = 1
+    private var outputLine = 0
     val navigation: NavigationView by inject()
+    val question: QuestionView by inject()
+
     val teams: TeamView by inject()
     val prompt = textflow{
         padding = Insets(0.0, 0.0, 8.0, 0.0)
         text("What is the "){
             font = Font(18.0)
         }
-        text(outputLine.english()){
+        text(outputLine.english(question.answers!!.size - 1)){
             font = Font(18.0)
             fill = Color.BLUE
         }
@@ -54,18 +56,18 @@ class IOPanel : View() {
 
     fun nextOutputLine(){
         outputLine += 1
-        (prompt.children[1] as Text).text = outputLine.english()
+        (prompt.children[1] as Text).text = outputLine.english(question.answers!!.size - 1)
     }
 
     fun prevOutputLine(){
         outputLine -= 1
-        (prompt.children[1] as Text).text = outputLine.english()
+        (prompt.children[1] as Text).text = outputLine.english(question.answers!!.size - 1)
     }
 
     companion object {
-        private fun Int.english() = listOf("first", "second", "third", "fourth",
+        private fun Int.english(max: Int) = listOf("first", "second", "third", "fourth",
                 "fifth", "sixth", "seventh", "eighth",
                 "ninth", "tenth", "eleventh", "twelfth",
-                "thirteenth", "fourteenth", "fifteenth", "sixteenth")[this - 1]
+                "thirteenth", "fourteenth", "fifteenth", "sixteenth")[this % max]
     }
 }

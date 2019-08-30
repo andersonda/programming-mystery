@@ -18,7 +18,8 @@ import javax.swing.filechooser.FileNameExtensionFilter
 class QuestionView : View() {
 
     private var questionFile: File? = null
-    private var answers: List<String>? = null
+    var answers: List<String>? = null
+        private set
 
     private val questionCode = RSyntaxTextArea(50, 200)
 
