@@ -56,6 +56,16 @@ class QuestionView : View() {
         questionCode.text = questionFile!!.readText()
     }
 
+    fun resize(direction: Int){
+        val size = when{
+            direction < 0 -> questionCode.font.size - 2
+            direction > 0 -> questionCode.font.size + 2
+            else -> 16
+        }
+
+        questionCode.font = Font(questionCode.font.fontName, questionCode.font.style, size)
+    }
+
     fun loadAnswers(){
         javac(questionFile!!)
         val isInPackage = questionFile!!.readText().startsWith("package ${questionFile!!.parentFile.name}")

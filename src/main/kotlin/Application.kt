@@ -28,6 +28,17 @@ class ApplicationView: View("Programming Mystery") {
             }
             menu("View"){
                 item("Scores")
+                menu("Zoom"){
+                    item("In").setOnAction {
+                        questionView.resize(1)
+                    }
+                    item("Out").setOnAction {
+                        questionView.resize(-1)
+                    }
+                    item("Reset").setOnAction {
+                        questionView.resize(0)
+                    }
+                }
             }
         }
         center = hbox()
