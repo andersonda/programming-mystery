@@ -32,7 +32,7 @@ class QuestionView : View() {
         questionCode.isCodeFoldingEnabled = true
 
         val default = RSyntaxTextArea.getDefaultFont()
-        questionCode.font = Font(default.fontName, default.style, 16)
+        questionCode.font = Font(default.fontName, default.style, 18)
         val sp = RTextScrollPane(questionCode)
 
         val swingNode = SwingNode()

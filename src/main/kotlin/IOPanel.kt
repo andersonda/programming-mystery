@@ -12,8 +12,9 @@ class IOPanel : View() {
         private set
     val navigation: NavigationView by inject()
     val question: QuestionView by inject()
-
     val teams: TeamView by inject()
+    val scores: ScoresView by inject()
+
     val prompt = textflow{
         padding = Insets(0.0, 0.0, 8.0, 0.0)
         text("What is the "){
@@ -53,6 +54,14 @@ class IOPanel : View() {
             paddingAll = 16
         }
         root += navigation.root
+        root += separator(Orientation.HORIZONTAL){
+            paddingAll = 16
+        }
+        root += label("Scores"){
+            font = Font(20.0)
+            paddingAll = 16.0
+        }
+        root += scores.root
     }
 
     fun nextOutputLine(){

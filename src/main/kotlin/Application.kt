@@ -1,5 +1,4 @@
 import tornadofx.*
-import java.awt.Toolkit
 import java.io.File
 import javax.swing.JFileChooser
 import javax.swing.filechooser.FileNameExtensionFilter
@@ -27,7 +26,6 @@ class ApplicationView: View("Programming Mystery") {
                 }
             }
             menu("View"){
-                item("Scores")
                 menu("Zoom"){
                     item("In").setOnAction {
                         questionView.resize(1)
@@ -64,6 +62,7 @@ class ApplicationView: View("Programming Mystery") {
         if(chooser.showOpenDialog(null) != JFileChooser.CANCEL_OPTION) {
             val teams = chooser.selectedFile.readText().lines()
             io.teams.populateTeams(teams)
+            io.scores.populateScores()
         }
     }
 }

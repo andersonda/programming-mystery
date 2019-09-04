@@ -10,6 +10,9 @@ class TeamView : View() {
     val question: QuestionView by inject()
     val io: IOPanel by inject()
 
+    var teams = listOf<Team>()
+        private set
+
     override val root = gridpane{
         hgap = 8.0
     }
@@ -18,11 +21,12 @@ class TeamView : View() {
         populateTeams(listOf("Team 1", "Team 2", "Team 3" ,"Team 4"))
     }
 
-
-    fun populateTeams(teams:List<String>){
+    fun populateTeams(newTeams:List<String>){
         root.removeAllRows()
-        teams.forEachIndexed { index, team ->
-            val text = Text(team)
+        teams = newTeams.map { Team(it, 0) }
+
+        teams.forEachIndexed {index, team ->
+            val text = Text(team.name)
             text.font = Font(16.0)
             val image = ImageView("question-mark.png")
             image.fitWidth = 16.0

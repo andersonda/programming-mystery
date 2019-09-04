@@ -1,0 +1,1 @@
+class Team(val name: String, var score: Int)
