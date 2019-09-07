@@ -77,11 +77,4 @@ class IOPanel : View() {
         if(outputLine < 0) outputLine += size
         (prompt.children[1] as Text).text = outputLine.english()
     }
-
-    companion object {
-        private fun Int.english() = listOf("first", "second", "third", "fourth",
-                "fifth", "sixth", "seventh", "eighth",
-                "ninth", "tenth", "eleventh", "twelfth",
-                "thirteenth", "fourteenth", "fifteenth", "sixteenth")[this]
-    }
 }

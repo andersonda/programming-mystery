@@ -26,6 +26,9 @@ class ApplicationView: View("Programming Mystery") {
                 }
             }
             menu("View"){
+                item("Answers").setOnAction {
+                    AnswersView().openWindow()
+                }
                 menu("Zoom"){
                     item("In").setOnAction {
                         questionView.resize(1)
