@@ -71,7 +71,7 @@ class QuestionView : View() {
     fun loadAnswers(){
         javac(questionFile!!)
         val isInPackage = questionFile!!.readText().startsWith("package ${questionFile!!.parentFile.name}")
-        answers = java(questionFile!!, isInPackage).lines()
+        answers = java(questionFile!!, isInPackage).lines().dropLastWhile { it.isBlank() } // remove last blank line
         questionsAnswered = MutableList(answers!!.size){ false }
         println(answers)
     }
