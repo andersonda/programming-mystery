@@ -38,14 +38,21 @@ class TeamView : View() {
         }
     }
 
-    fun checkAnswers() = root.children.forEachIndexed { index, node ->
-        if(node is TextField){
-            (root.children[index + 1] as ImageView).image = when(node.text){
-                question.answers!![io.outputLine] -> Image("checkmark.png")
-                else -> Image("x-mark.png")
+    fun checkAnswers() = teams.forEachIndexed{index, team ->
+        val textFieldIndex = 3 * index + 1
+        val node = root.children[textFieldIndex] as TextField
+        (root.children[textFieldIndex + 1] as ImageView).image = when(node.text){
+            question.answers!![io.outputLine] -> {
+                team.score += 1
+                Image("checkmark.png")
             }
-            // TODO: handle scoring
+            else -> Image("x-mark.png")
         }
+
+    }.also {
+        question.questionsAnswered!![io.outputLine] = true
+        io.navigation.disableCheck()
+        io.scores.populateScores()
     }
 
     fun resetResponses() = root.children.forEach {

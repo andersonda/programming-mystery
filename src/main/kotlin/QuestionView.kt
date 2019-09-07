@@ -20,6 +20,8 @@ class QuestionView : View() {
     private var questionFile: File? = null
     var answers: List<String>? = null
         private set
+    var questionsAnswered: MutableList<Boolean>? = null
+        private set
 
     private val questionCode = RSyntaxTextArea(50, 200)
 
@@ -70,6 +72,7 @@ class QuestionView : View() {
         javac(questionFile!!)
         val isInPackage = questionFile!!.readText().startsWith("package ${questionFile!!.parentFile.name}")
         answers = java(questionFile!!, isInPackage).lines()
+        questionsAnswered = MutableList(answers!!.size){ false }
         println(answers)
     }
 
