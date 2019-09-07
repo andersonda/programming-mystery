@@ -65,14 +65,14 @@ class IOPanel : View() {
     }
 
     fun nextOutputLine(){
-        val size = question.answers!!.size - 1
+        val size = question.answers!!.size
         outputLine = (outputLine + 1) % size
         if(outputLine < 0) outputLine += size
         (prompt.children[1] as Text).text = outputLine.english()
     }
 
     fun prevOutputLine(){
-        val size = question.answers!!.size - 1
+        val size = question.answers!!.size
         outputLine = (outputLine - 1) % size
         if(outputLine < 0) outputLine += size
         (prompt.children[1] as Text).text = outputLine.english()
