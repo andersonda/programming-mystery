@@ -62,7 +62,7 @@ class QuestionView : View() {
         val size = when{
             direction < 0 -> questionCode.font.size - 2
             direction > 0 -> questionCode.font.size + 2
-            else -> 16
+            else -> 18
         }
 
         questionCode.font = Font(questionCode.font.fontName, questionCode.font.style, size)
