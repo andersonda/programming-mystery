@@ -5,7 +5,7 @@ import javax.swing.filechooser.FileNameExtensionFilter
 import kotlin.system.exitProcess
 
 class Application: App(ApplicationView::class)
-
+// TODO: splitpane
 class ApplicationView: View("Programming Mystery") {
     private val questionView: QuestionView by inject()
     val io: IOPanel by inject()
