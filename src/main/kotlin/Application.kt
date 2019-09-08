@@ -1,3 +1,6 @@
+import javafx.event.EventHandler
+import javafx.scene.control.SplitPane
+import javafx.stage.WindowEvent
 import tornadofx.*
 import java.io.File
 import javax.swing.JFileChooser
@@ -5,10 +8,11 @@ import javax.swing.filechooser.FileNameExtensionFilter
 import kotlin.system.exitProcess
 
 class Application: App(ApplicationView::class)
-// TODO: splitpane
+
 class ApplicationView: View("Programming Mystery") {
     private val questionView: QuestionView by inject()
     val io: IOPanel by inject()
+    val sp = SplitPane()
 
     override val root = borderpane {
         top =  menubar {
@@ -42,14 +46,21 @@ class ApplicationView: View("Programming Mystery") {
                 }
             }
         }
-        center = hbox()
+        center = sp
     }
 
     init {
         loadQuestion()
-        root.children[1] += questionView.root
-        root.children[1] += io.root
-        currentStage?.isMaximized = true;
+        sp += questionView.root
+        sp += io.root
+        currentStage?.isMaximized = true
+        currentStage?.addEventHandler(WindowEvent.WINDOW_SHOWING, EventHandler {
+            sp.setDividerPositions(.80)
+        })
+
+        runLater(1.seconds) {
+            sp.setDividerPositions(.75)
+        }
     }
 
     fun loadQuestion(){

@@ -4,6 +4,7 @@ import javafx.geometry.Pos
 import javafx.scene.paint.Color
 import javafx.scene.text.Font
 import javafx.scene.text.Text
+import javafx.scene.text.TextAlignment
 import tornadofx.*
 
 class IOPanel : View() {
@@ -16,6 +17,7 @@ class IOPanel : View() {
     val scores: ScoresView by inject()
 
     val prompt = textflow{
+        textAlignment = TextAlignment.CENTER
         padding = Insets(0.0, 0.0, 8.0, 0.0)
         text("What is the "){
             font = Font(18.0)

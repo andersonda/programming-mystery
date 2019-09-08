@@ -23,7 +23,7 @@ class QuestionView : View() {
     var questionsAnswered: MutableList<Boolean>? = null
         private set
 
-    private val questionCode = RSyntaxTextArea(50, 200)
+    private val questionCode = RSyntaxTextArea(50, 50)
 
     override val root = vbox{
         paddingAll = 16
@@ -34,7 +34,7 @@ class QuestionView : View() {
         questionCode.isCodeFoldingEnabled = true
 
         val default = RSyntaxTextArea.getDefaultFont()
-        questionCode.font = Font(default.fontName, default.style, 18)
+        questionCode.font = Font(default.fontName, default.style, 20)
         val sp = RTextScrollPane(questionCode)
 
         val swingNode = SwingNode()
@@ -62,7 +62,7 @@ class QuestionView : View() {
         val size = when{
             direction < 0 -> questionCode.font.size - 2
             direction > 0 -> questionCode.font.size + 2
-            else -> 18
+            else -> 20
         }
 
         questionCode.font = Font(questionCode.font.fontName, questionCode.font.style, size)

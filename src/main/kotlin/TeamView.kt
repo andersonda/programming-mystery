@@ -1,6 +1,9 @@
+import javafx.geometry.Pos
 import javafx.scene.control.TextField
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.scene.layout.ColumnConstraints
+import javafx.scene.layout.Priority
 import javafx.scene.text.Font
 import javafx.scene.text.Text
 import tornadofx.*
@@ -15,6 +18,10 @@ class TeamView : View() {
 
     override val root = gridpane{
         hgap = 8.0
+        alignment = Pos.CENTER
+        columnConstraints.addAll(
+            ColumnConstraints(),
+            ColumnConstraints().apply { hgrow = Priority.ALWAYS })
     }
 
     init {
@@ -38,7 +45,7 @@ class TeamView : View() {
         }
     }
 
-    fun checkAnswers() = teams.forEachIndexed{index, team ->
+    fun checkAnswers() = teams.forEachIndexed{ index, team ->
         val textFieldIndex = 3 * index + 1
         val node = root.children[textFieldIndex] as TextField
         (root.children[textFieldIndex + 1] as ImageView).image = when(node.text){
