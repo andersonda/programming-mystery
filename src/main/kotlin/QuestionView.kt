@@ -9,11 +9,7 @@ import kotlin.system.exitProcess
 import org.fife.ui.rtextarea.RTextScrollPane
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea
-import java.awt.Dimension
 import javax.swing.filechooser.FileNameExtensionFilter
-
-
-
 
 class QuestionView : View() {
 
