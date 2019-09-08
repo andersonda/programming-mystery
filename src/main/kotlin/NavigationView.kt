@@ -49,9 +49,11 @@ class NavigationView : View() {
 
     fun disableCheck(){
         check.isDisable = true
+        teams.disableInput()
     }
 
     fun enableCheck(){
         check.isDisable = false
+        teams.enableInput()
     }
 }

@@ -76,4 +76,12 @@ class TeamView : View() {
             node.text = response
         }
     }
+
+    fun disableInput() = teams.forEachIndexed { index, _ ->
+        (root.children[3 * index + 1] as TextField).isDisable = true
+    }
+
+    fun enableInput() = teams.forEachIndexed { index, _ ->
+        (root.children[3 * index + 1] as TextField).isDisable = false
+    }
 }
