@@ -45,8 +45,8 @@ class QuestionView : View() {
     fun chooseQuestion() {
         val chooser = JFileChooser()
         chooser.dialogTitle = "Open Java File"
-        chooser.currentDirectory = File("./src/main/sample-java")
         chooser.fileFilter = FileNameExtensionFilter("JAVA files", "java")
+        chooser.currentDirectory = File("./src/main/programming-mystery-questions")
         if(chooser.showOpenDialog(null) == JFileChooser.CANCEL_OPTION){
             if(questionCode.text.isBlank()){
                 exitProcess(0)
