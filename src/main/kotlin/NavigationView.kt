@@ -9,9 +9,9 @@ class NavigationView : View() {
     private val prev = button("Prev") {
         useMaxWidth = true
         setOnAction {
-            teams.resetResponses()
             io.prevOutputLine()
-            when(questionView.questionsAnswered!![io.outputLine]){
+            teams.loadResponses(questionView.questionResponses!![io.outputLine])
+            when(questionView.questionResponses!![io.outputLine].isNotEmpty()){
                 true -> io.navigation.disableCheck()
                 false -> io.navigation.enableCheck()
             }
@@ -26,9 +26,9 @@ class NavigationView : View() {
     private val next = button("Next") {
         useMaxWidth = true
         setOnAction {
-            teams.resetResponses()
             io.nextOutputLine()
-            when(questionView.questionsAnswered!![io.outputLine]){
+            teams.loadResponses(questionView.questionResponses!![io.outputLine])
+            when(questionView.questionResponses!![io.outputLine].isNotEmpty()){
                 true -> io.navigation.disableCheck()
                 false -> io.navigation.enableCheck()
             }

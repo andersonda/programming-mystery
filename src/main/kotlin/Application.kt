@@ -59,13 +59,15 @@ class ApplicationView: View("Programming Mystery") {
         })
 
         runLater(1.seconds) {
-            sp.setDividerPositions(.75)
+            sp.setDividerPositions(.80)
         }
     }
 
     fun loadQuestion(){
         questionView.chooseQuestion()
         questionView.loadAnswers()
+        io.teams.loadResponses(emptyList())
+        io.navigation.enableCheck()
     }
 
     fun loadTeams(){

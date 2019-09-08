@@ -55,19 +55,26 @@ class TeamView : View() {
             }
             else -> Image("x-mark.png")
         }
+        question.questionResponses!![io.outputLine].add(node.text)
 
     }.also {
-        question.questionsAnswered!![io.outputLine] = true
         io.navigation.disableCheck()
         io.scores.populateScores()
     }
 
-    fun resetResponses() = root.children.forEach {
-        if(it is ImageView){
-            it.image = Image("question-mark.png")
+    fun loadResponses(responses: List<String> = emptyList()) = when(responses.isEmpty()){
+        true -> root.children.forEach {
+            if (it is ImageView) {
+                it.image = Image("question-mark.png")
+            } else if (it is TextField) {
+                it.text = ""
+            }
         }
-        else if(it is TextField){
-            it.text = ""
+
+        false -> responses.forEachIndexed { index, response ->
+            val textFieldIndex = 3 * index + 1
+            val node = root.children[textFieldIndex] as TextField
+            node.text = response
         }
     }
 }
