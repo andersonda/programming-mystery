@@ -54,11 +54,9 @@ class ApplicationView: View("Programming Mystery") {
         sp += questionView.root
         sp += io.root
         currentStage?.isMaximized = true
-        currentStage?.addEventHandler(WindowEvent.WINDOW_SHOWING, EventHandler {
-            sp.setDividerPositions(.80)
-        })
 
-        runLater(1.seconds) {
+        // TODO: this is a hacky solution to get the divider to the correct position. should be revisited
+        runLater(.5.seconds) {
             sp.setDividerPositions(.80)
         }
     }
