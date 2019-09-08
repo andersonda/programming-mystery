@@ -1,6 +1,7 @@
-import javafx.event.EventHandler
 import javafx.scene.control.SplitPane
-import javafx.stage.WindowEvent
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyCodeCombination
+import javafx.scene.input.KeyCombination
 import tornadofx.*
 import java.io.File
 import javax.swing.JFileChooser
@@ -29,19 +30,28 @@ class ApplicationView: View("Programming Mystery") {
                     exitProcess(0)
                 }
             }
-            menu("View"){
+            menu("View") {
                 item("Answers").setOnAction {
                     AnswersView().openWindow()
                 }
-                menu("Zoom"){
-                    item("In").setOnAction {
-                        questionView.resize(1)
+                menu("Zoom") {
+                    item("In") {
+                        accelerator = KeyCodeCombination(KeyCode.EQUALS, KeyCombination.CONTROL_ANY)
+                        setOnAction {
+                            questionView.resize(1)
+                        }
                     }
-                    item("Out").setOnAction {
-                        questionView.resize(-1)
+                    item("Out"){
+                        accelerator = KeyCodeCombination(KeyCode.MINUS, KeyCombination.CONTROL_ANY)
+                        setOnAction {
+                            questionView.resize(-1)
+                        }
                     }
-                    item("Reset").setOnAction {
-                        questionView.resize(0)
+                    item("Reset") {
+                        accelerator = KeyCodeCombination(KeyCode.BACK_SPACE, KeyCombination.CONTROL_ANY)
+                        setOnAction {
+                            questionView.resize(0)
+                        }
                     }
                 }
             }
