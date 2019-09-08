@@ -10,15 +10,17 @@ class AnswersView : View("Answers") {
         hgap = 16.0
     }
 
-    init {
-        questionView.answers!!.forEachIndexed { index, answer ->
-            val promptLabel = Label("${index.english()} line of output: " )
-            promptLabel.font = Font(20.0)
-            val answerLabel = Label(answer)
-            answerLabel.font = Font(20.0)
+    fun loadAllAnswers() = questionView.answers!!.forEachIndexed { index, answer ->
+        loadAnswer(index, answer)
+    }
 
-            root.add(promptLabel, 0, index)
-            root.add(answerLabel, 1, index)
-        }
+    fun loadAnswer(index: Int, answer: String){
+        val promptLabel = Label("${index.english()} line of output: " )
+        promptLabel.font = Font(20.0)
+        val answerLabel = Label(answer)
+        answerLabel.font = Font(20.0)
+
+        root.add(promptLabel, 0, index)
+        root.add(answerLabel, 1, index)
     }
 }

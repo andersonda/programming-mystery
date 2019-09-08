@@ -31,8 +31,17 @@ class ApplicationView: View("Programming Mystery") {
                 }
             }
             menu("View") {
-                item("Answers").setOnAction {
-                    AnswersView().openWindow()
+                menu("Answers"){
+                    item("All Answers").setOnAction {
+                        val view = AnswersView()
+                        view.loadAllAnswers()
+                        view.openWindow()
+                    }
+                    item("Current Answer").setOnAction {
+                        val view = AnswersView()
+                        view.loadAnswer(io.outputLine, questionView.answers!![io.outputLine])
+                        view.openWindow()
+                    }
                 }
                 menu("Zoom") {
                     item("In") {
