@@ -1,0 +1,3 @@
+[submodule "src/main/programming-mystery-questions"]
+	path = src/main/programming-mystery-questions
+	url = https://github.com/andersonda/programming-mystery-questions
