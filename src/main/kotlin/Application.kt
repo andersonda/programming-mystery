@@ -100,8 +100,7 @@ class ApplicationView: View("Programming Mystery") {
             val teams = chooser.selectedFile.readText().lines()
             io.teams.populateTeams(teams)
             io.scores.populateScores()
+            teamPath.writeText(chooser.selectedFile.parent)
         }
-
-        teamPath.writeText(chooser.selectedFile.parent)
     }
 }
