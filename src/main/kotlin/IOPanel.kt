@@ -1,12 +1,14 @@
 import javafx.geometry.Insets
 import javafx.geometry.Orientation
 import javafx.geometry.Pos
+import javafx.scene.control.ScrollPane
 import javafx.scene.paint.Color
 import javafx.scene.text.Font
 import javafx.scene.text.Text
 import javafx.scene.text.TextAlignment
 import tornadofx.*
 import java.util.*
+import javax.swing.GroupLayout
 
 
 class IOPanel : View() {
@@ -33,30 +35,19 @@ class IOPanel : View() {
         }
     }
 
-    override val root = scrollpane{
-        isFitToWidth = true
+    override val root = vbox{
+        alignment = Pos.TOP_CENTER
+    }
+
+    val image = imageview("incognito-512.png"){
+        fitWidth = 256.0
+        fitHeight = 256.0
     }
 
     init {
         val vb = vbox {
             paddingAll = 16
             alignment = Pos.TOP_CENTER
-        }
-        vb += imageview("incognito-512.png"){
-            fitWidth = 256.0
-            fitHeight = 256.0
-        }
-        vb += label("Programming Mystery"){
-            font = Font(20.0)
-        }
-
-        val properties = Properties()
-        properties.load(Application::class.java.getResourceAsStream("/version.properties"))
-        vb += label("Version ${properties.getProperty("version")}"){
-            font = Font(10.0)
-        }
-        vb += separator(Orientation.HORIZONTAL){
-            paddingAll = 16
         }
         vb += prompt
         vb += teams.root
@@ -73,7 +64,22 @@ class IOPanel : View() {
         }
         vb += scores.root
 
-        root.content = vb
+        val sp = ScrollPane().apply{
+            isFitToWidth = true
+        }
+        sp.content = vb
+
+        root += image
+        root += label("Programming Mystery"){
+            font = Font(20.0)
+        }
+
+        val properties = Properties()
+        properties.load(Application::class.java.getResourceAsStream("/version.properties"))
+        root += label("Version ${properties.getProperty("version")}"){
+            font = Font(10.0)
+        }
+        root += sp
     }
 
     fun nextOutputLine(){
