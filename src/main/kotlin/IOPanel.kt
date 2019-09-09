@@ -1,6 +1,7 @@
 import javafx.geometry.Insets
 import javafx.geometry.Orientation
 import javafx.geometry.Pos
+import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 import javafx.scene.text.Font
 import javafx.scene.text.Text
@@ -31,39 +32,42 @@ class IOPanel : View() {
         }
     }
 
-    override val root = vbox {
-        paddingAll = 16
-        alignment = Pos.TOP_CENTER
-    }
+    override val root = scrollpane()
 
     init {
-        root += imageview("incognito-512.png"){
+        val vb = vbox {
+            paddingAll = 16
+            alignment = Pos.TOP_CENTER
+        }
+        vb += imageview("incognito-512.png"){
             fitWidth = 256.0
             fitHeight = 256.0
         }
-        root += label("Programming Mystery"){
+        vb += label("Programming Mystery"){
             font = Font(20.0)
         }
-        root += label("Version 0.1 ALPHA"){
+        vb += label("Version 0.1 ALPHA"){
             font = Font(10.0)
         }
-        root += separator(Orientation.HORIZONTAL){
+        vb += separator(Orientation.HORIZONTAL){
             paddingAll = 16
         }
-        root += prompt
-        root += teams.root
-        root += separator(Orientation.HORIZONTAL){
+        vb += prompt
+        vb += teams.root
+        vb += separator(Orientation.HORIZONTAL){
             paddingAll = 16
         }
-        root += navigation.root
-        root += separator(Orientation.HORIZONTAL){
+        vb += navigation.root
+        vb += separator(Orientation.HORIZONTAL){
             paddingAll = 16
         }
-        root += label("Scores"){
+        vb += label("Scores"){
             font = Font(20.0)
             paddingAll = 16.0
         }
-        root += scores.root
+        vb += scores.root
+
+        root.content = vb
     }
 
     fun nextOutputLine(){
