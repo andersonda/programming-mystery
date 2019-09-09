@@ -1,12 +1,13 @@
 import javafx.geometry.Insets
 import javafx.geometry.Orientation
 import javafx.geometry.Pos
-import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 import javafx.scene.text.Font
 import javafx.scene.text.Text
 import javafx.scene.text.TextAlignment
 import tornadofx.*
+import java.util.*
+
 
 class IOPanel : View() {
 
@@ -46,7 +47,10 @@ class IOPanel : View() {
         vb += label("Programming Mystery"){
             font = Font(20.0)
         }
-        vb += label("Version 0.1 ALPHA"){
+
+        val properties = Properties()
+        properties.load(Application::class.java.getResourceAsStream("/version.properties"))
+        vb += label("Version ${properties.getProperty("version")}"){
             font = Font(10.0)
         }
         vb += separator(Orientation.HORIZONTAL){
