@@ -39,10 +39,14 @@ class QuestionView : View() {
     }
 
     fun chooseQuestion() {
+        val codePath = File("code-path.txt")
+        if(!codePath.exists()){
+            codePath.writeText("")
+        }
         val chooser = JFileChooser()
         chooser.dialogTitle = "Open Java File"
         chooser.fileFilter = FileNameExtensionFilter("JAVA files", "java")
-        chooser.currentDirectory = File("./src/main/programming-mystery-questions/src/main/java")
+        chooser.currentDirectory = File(codePath.readText())
         if(chooser.showOpenDialog(null) == JFileChooser.CANCEL_OPTION){
             if(questionCode.text.isBlank()){
                 exitProcess(0)
@@ -52,6 +56,7 @@ class QuestionView : View() {
 
         questionFile = chooser.selectedFile
         questionCode.text = questionFile!!.readText()
+        codePath.writeText(questionFile!!.parent)
     }
 
     fun resize(direction: Int){

@@ -19,7 +19,7 @@ The answer to the current line of output can be viewed by using the `View -> Ans
 
 ## Sample Problems
 
-The [programming-mystery-questions](https://github.com/andersonda/programming-mystery-questions) contains sample Java files to use with this application. For testing purposes, this is included as a submodule of this repository. If you are running a jar from the releases page, this repository needs to be cloned separately in order to be used. Once cloned, you can use the `Load -> Code` menu option and navigate to the repo location.
+The [programming-mystery-questions](https://github.com/andersonda/programming-mystery-questions) repository contains sample Java files to use with this application. For testing purposes, this is included as a submodule of this repository. If you are running a jar from the releases page, this repository needs to be cloned separately in order to be used. Once cloned, you can use the `Load -> Code` menu option and navigate to the repo location.
 
 ## Installation
 
