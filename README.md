@@ -27,4 +27,4 @@ First, since this software uses the `javac` and `java` commands to compile and r
 
 Next, you have two options to run this software:
 1. Import this project into IntelliJ IDEA and build and run it within the IDE
-2. Download an executable jar from the releases page of this repository
+2. Download an executable jar from the [releases](https://github.com/andersonda/programming-mystery/releases) page of this repository
