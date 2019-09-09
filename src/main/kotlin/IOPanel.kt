@@ -33,7 +33,9 @@ class IOPanel : View() {
         }
     }
 
-    override val root = scrollpane()
+    override val root = scrollpane{
+        isFitToWidth = true
+    }
 
     init {
         val vb = vbox {
