@@ -21,9 +21,9 @@ class ScoresView : View("Scores") {
         var index = 0;
         teamView.teams.forEach { team  ->
             val teamText = Text(team.name)
-            teamText.font = Font(16.0)
+            teamText.font = Font(18.0)
             val scoreText = Text(team.score.toString())
-            scoreText.font = Font(16.0)
+            scoreText.font = Font(18.0)
 
             root.add(teamText, 0, index)
             root.add(scoreText, 1, index)

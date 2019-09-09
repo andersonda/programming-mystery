@@ -1,4 +1,5 @@
 import javafx.geometry.Pos
+import javafx.scene.text.Font
 import tornadofx.*
 
 class NavigationView : View() {
@@ -8,6 +9,7 @@ class NavigationView : View() {
 
     private val prev = button("Prev") {
         useMaxWidth = true
+        font = Font(18.0)
         setOnAction {
             io.prevOutputLine()
             teams.loadResponses(questionView.questionResponses!![io.outputLine])
@@ -19,12 +21,14 @@ class NavigationView : View() {
     }
     private val check = button("Check") {
         useMaxWidth = true
+        font = Font(18.0)
         setOnAction {
             teams.checkAnswers()
         }
     }
     private val next = button("Next") {
         useMaxWidth = true
+        font = Font(18.0)
         setOnAction {
             io.nextOutputLine()
             teams.loadResponses(questionView.questionResponses!![io.outputLine])
