@@ -44,36 +44,67 @@ class TeamView : View() {
         }
     }
 
-    fun checkAnswers() = teams.forEachIndexed{ index, team ->
-        val textFieldIndex = 3 * index + 1
-        val node = root.children[textFieldIndex] as TextField
-        (root.children[textFieldIndex + 1] as ImageView).image = when(node.text){
-            question.answers!![io.outputLine] -> {
-                team.score += 1
-                Image("checkmark.png")
-            }
-            else -> Image("x-mark.png")
-        }
-        question.questionResponses!![io.outputLine].add(node.text)
-
-    }.also {
-        io.navigation.disableCheck()
-        io.scores.populateScores()
-    }
-
-    fun loadResponses(responses: List<String> = emptyList()) = when(responses.isEmpty()){
-        true -> root.children.forEach {
-            if (it is ImageView) {
-                it.image = Image("question-mark.png")
-            } else if (it is TextField) {
-                it.text = ""
-            }
-        }
-
-        false -> responses.forEachIndexed { index, response ->
+    fun checkAnswers(){
+        var allCorrect = true
+        teams.forEachIndexed{ index, team ->
             val textFieldIndex = 3 * index + 1
             val node = root.children[textFieldIndex] as TextField
-            node.text = response
+            (root.children[textFieldIndex + 1] as ImageView).image = when(node.text){
+                question.answers!![io.outputLine] -> {
+                    team.score += 1
+                    Image("checkmark.png")
+                }
+                else -> {
+                    allCorrect = false
+                    Image("x-mark.png")
+                }
+            }
+            question.questionResponses!![io.outputLine].add(node.text)
+
+        }
+        io.navigation.disableCheck()
+        io.scores.populateScores()
+        when(allCorrect){
+            true -> io.makeMascotHappy()
+            false -> io.makeMascotUnhappy()
+        }
+    }
+
+    fun loadResponses(responses: List<String> = emptyList()){
+        when(responses.isEmpty()){
+            true -> {
+                io.makeMascotUnhappy()
+                root.children.forEach {
+                    if (it is ImageView) {
+                        it.image = Image("question-mark.png")
+                    } else if (it is TextField) {
+                        it.text = ""
+                    }
+                }
+            }
+
+            false -> {
+                var allCorrect = true
+                responses.forEachIndexed { index, response ->
+                    val textFieldIndex = 3 * index + 1
+                    val node = root.children[textFieldIndex] as TextField
+                    node.text = response
+
+                    (root.children[textFieldIndex + 1] as ImageView).image = when(node.text){
+                        question.answers!![io.outputLine] -> {
+                            Image("checkmark.png")
+                        }
+                        else -> {
+                            allCorrect = false
+                            Image("x-mark.png")
+                        }
+                    }
+                }
+                when(allCorrect){
+                    true -> io.makeMascotHappy()
+                    false -> io.makeMascotUnhappy()
+                }
+            }
         }
     }
 

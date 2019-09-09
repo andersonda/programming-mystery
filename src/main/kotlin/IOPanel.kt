@@ -2,14 +2,13 @@ import javafx.geometry.Insets
 import javafx.geometry.Orientation
 import javafx.geometry.Pos
 import javafx.scene.control.ScrollPane
+import javafx.scene.image.Image
 import javafx.scene.paint.Color
 import javafx.scene.text.Font
 import javafx.scene.text.Text
 import javafx.scene.text.TextAlignment
 import tornadofx.*
 import java.util.*
-import javax.swing.GroupLayout
-
 
 class IOPanel : View() {
 
@@ -94,5 +93,13 @@ class IOPanel : View() {
         outputLine = (outputLine - 1) % size
         if(outputLine < 0) outputLine += size
         (prompt.children[1] as Text).text = outputLine.english()
+    }
+
+    fun makeMascotHappy() = image.apply {
+        image = Image("incognito-512-happy.png")
+    }
+
+    fun makeMascotUnhappy() = image.apply {
+        image = Image("incognito-512.png")
     }
 }
