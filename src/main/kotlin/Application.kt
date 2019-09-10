@@ -102,6 +102,7 @@ class ApplicationView: View("Programming Mystery") {
             io.scores.populateScores()
             io.question.resetResponses()
             io.teams.loadResponses()
+            io.navigation.enableCheck()
             teamPath.writeText(chooser.selectedFile.parent)
         }
     }
