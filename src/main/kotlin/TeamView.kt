@@ -45,35 +45,34 @@ class TeamView : View() {
     }
 
     fun checkAnswers(){
-        var allCorrect = true
+        var numCorrect = 0
         teams.forEachIndexed{ index, team ->
             val textFieldIndex = 3 * index + 1
             val node = root.children[textFieldIndex] as TextField
             (root.children[textFieldIndex + 1] as ImageView).image = when(node.text){
                 question.answers!![io.outputLine] -> {
                     team.score += 1
+                    numCorrect += 1
                     Image("checkmark.png")
                 }
-                else -> {
-                    allCorrect = false
-                    Image("x-mark.png")
-                }
+                else -> Image("x-mark.png")
             }
             question.questionResponses!![io.outputLine].add(node.text)
 
         }
         io.navigation.disableCheck()
         io.scores.populateScores()
-        when(allCorrect){
-            true -> io.makeMascotHappy()
-            false -> io.makeMascotUnhappy()
+        when(numCorrect){
+            0 -> io.makeMascotSad()
+            teams.size -> io.makeMascotHappy()
+            else -> io.makeMascotNeutral()
         }
     }
 
     fun loadResponses(responses: List<String> = emptyList()){
         when(responses.isEmpty()){
             true -> {
-                io.makeMascotUnhappy()
+                io.makeMascotNeutral()
                 root.children.forEach {
                     if (it is ImageView) {
                         it.image = Image("question-mark.png")
@@ -84,7 +83,7 @@ class TeamView : View() {
             }
 
             false -> {
-                var allCorrect = true
+                var numCorrect = 0
                 responses.forEachIndexed { index, response ->
                     val textFieldIndex = 3 * index + 1
                     val node = root.children[textFieldIndex] as TextField
@@ -92,17 +91,17 @@ class TeamView : View() {
 
                     (root.children[textFieldIndex + 1] as ImageView).image = when(node.text){
                         question.answers!![io.outputLine] -> {
+                            numCorrect += 1
                             Image("checkmark.png")
                         }
-                        else -> {
-                            allCorrect = false
-                            Image("x-mark.png")
-                        }
+                        else -> Image("x-mark.png")
+
                     }
                 }
-                when(allCorrect){
-                    true -> io.makeMascotHappy()
-                    false -> io.makeMascotUnhappy()
+                when(numCorrect){
+                    0 -> io.makeMascotSad()
+                    teams.size -> io.makeMascotHappy()
+                    else -> io.makeMascotNeutral()
                 }
             }
         }

@@ -99,7 +99,11 @@ class IOPanel : View() {
         image = Image("incognito-512-happy.png")
     }
 
-    fun makeMascotUnhappy() = image.apply {
+    fun makeMascotNeutral() = image.apply {
         image = Image("incognito-512.png")
+    }
+
+    fun makeMascotSad() = image.apply {
+        image = Image("incognito-512-sad.png")
     }
 }
