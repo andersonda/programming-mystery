@@ -12,7 +12,7 @@ class Application: App(ApplicationView::class)
 
 class ApplicationView: View("Programming Mystery") {
     private val questionView: QuestionView by inject()
-    val io: IOPanel by inject()
+    val ioPanelView: IOPanelView by inject()
     val sp = SplitPane()
 
     override val root = borderpane {
@@ -39,7 +39,7 @@ class ApplicationView: View("Programming Mystery") {
                     }
                     item("Current Answer").setOnAction {
                         val view = AnswersView()
-                        view.loadAnswer(io.outputLine, questionView.answers!![io.outputLine])
+                        view.loadAnswer(ioPanelView.outputLine, questionView.answers!![ioPanelView.outputLine])
                         view.openWindow()
                     }
                 }
@@ -71,7 +71,7 @@ class ApplicationView: View("Programming Mystery") {
     init {
         loadQuestion()
         sp += questionView.root
-        sp += io.root
+        sp += ioPanelView.root
         currentStage?.isMaximized = true
 
         // TODO: this is a hacky solution to get the divider to the correct position. should be revisited
@@ -83,8 +83,8 @@ class ApplicationView: View("Programming Mystery") {
     fun loadQuestion(){
         questionView.chooseQuestion()
         questionView.loadAnswers()
-        io.teams.loadResponses()
-        io.navigation.enableCheck()
+        ioPanelView.teamView.loadResponses()
+        ioPanelView.navigationView.enableCheck()
     }
 
     fun loadTeams(){
@@ -98,12 +98,12 @@ class ApplicationView: View("Programming Mystery") {
         chooser.currentDirectory = File(teamPath.readText())
         if(chooser.showOpenDialog(null) != JFileChooser.CANCEL_OPTION) {
             val teams = chooser.selectedFile.readText().lines()
-            io.teams.populateTeams(teams)
-            io.scores.populateScores()
-            io.question.resetResponses()
-            io.resetOutputLine()
-            io.teams.loadResponses()
-            io.navigation.enableCheck()
+            ioPanelView.teamView.populateTeams(teams)
+            ioPanelView.scoresView.populateScores()
+            ioPanelView.questionView.resetResponses()
+            ioPanelView.resetOutputLine()
+            ioPanelView.teamView.loadResponses()
+            ioPanelView.navigationView.enableCheck()
             teamPath.writeText(chooser.selectedFile.parent)
         }
     }

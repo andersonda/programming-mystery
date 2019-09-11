@@ -14,7 +14,7 @@ import javax.swing.filechooser.FileNameExtensionFilter
 class QuestionView : View() {
 
     val teamView: TeamView by inject()
-    val ioPanel: IOPanel by inject()
+    val ioPanelView: IOPanelView by inject()
 
     private var questionFile: File? = null
     private val questionCode = RSyntaxTextArea(50, 50)
@@ -76,7 +76,7 @@ class QuestionView : View() {
         val isInPackage = questionFile!!.readText().startsWith("package ${questionFile!!.parentFile.name}")
         answers = java(questionFile!!, isInPackage).lines().dropLastWhile { it.isBlank() } // remove last blank line
         resetResponses()
-        ioPanel.resetOutputLine()
+        ioPanelView.resetOutputLine()
         teamView.loadResponses()
         println(answers)
     }

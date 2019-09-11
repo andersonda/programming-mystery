@@ -3,33 +3,32 @@ import javafx.scene.text.Font
 import tornadofx.*
 
 class NavigationView : View() {
-    val io: IOPanel by inject()
-    val teams: TeamView by inject()
-    val questionView: QuestionView by inject()
+    val ioPanelView: IOPanelView by inject()
+    val teamView: TeamView by inject()
 
     private val prev = button("Prev") {
         useMaxWidth = true
         font = Font(18.0)
         setOnAction {
-            teams.saveResponses()
-            io.prevOutputLine()
-            teams.loadResponses()
+            teamView.saveResponses()
+            ioPanelView.prevOutputLine()
+            teamView.loadResponses()
         }
     }
     private val check = button("Check") {
         useMaxWidth = true
         font = Font(18.0)
         setOnAction {
-            teams.checkAnswers()
+            teamView.checkAnswers()
         }
     }
     private val next = button("Next") {
         useMaxWidth = true
         font = Font(18.0)
         setOnAction {
-            teams.saveResponses()
-            io.nextOutputLine()
-            teams.loadResponses()
+            teamView.saveResponses()
+            ioPanelView.nextOutputLine()
+            teamView.loadResponses()
         }
     }
 

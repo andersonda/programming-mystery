@@ -10,8 +10,8 @@ import tornadofx.*
 
 class TeamView : View() {
 
-    val question: QuestionView by inject()
-    val io: IOPanel by inject()
+    val questionView: QuestionView by inject()
+    val ioPanelView: IOPanelView by inject()
 
     var teams = listOf<Team>()
         private set
@@ -46,11 +46,11 @@ class TeamView : View() {
 
     fun checkAnswers(){
         saveResponses()
-        val responses = question.responses!![io.outputLine]
+        val responses = questionView.responses!![ioPanelView.outputLine]
         when(responses.numCorrect){
-            0 -> io.makeMascotSad()
-            teams.size -> io.makeMascotHappy()
-            else -> io.makeMascotNeutral()
+            0 -> ioPanelView.makeMascotSad()
+            teams.size -> ioPanelView.makeMascotHappy()
+            else -> ioPanelView.makeMascotNeutral()
         }
         responses.correctIndices.forEachIndexed { index, isCorrect ->
             (root.children[3 * index + 2] as ImageView).image = when(isCorrect){
@@ -61,13 +61,13 @@ class TeamView : View() {
                 false -> Image("x-mark.png")
             }
         }
-        io.navigation.disableCheck()
+        ioPanelView.navigationView.disableCheck()
         disableInput()
-        io.scores.populateScores()
+        ioPanelView.scoresView.populateScores()
     }
 
     fun saveResponses(){
-        val responses = question.responses!![io.outputLine]
+        val responses = questionView.responses!![ioPanelView.outputLine]
         responses.clearResponses()
 
         teams.forEachIndexed { index, _ ->
@@ -76,7 +76,7 @@ class TeamView : View() {
     }
 
     fun loadResponses() {
-        val responses = question.responses!![io.outputLine]
+        val responses = questionView.responses!![ioPanelView.outputLine]
 
         if(responses.checked) {
             responses.getResponses().forEachIndexed { index, response ->
@@ -84,18 +84,18 @@ class TeamView : View() {
                 val node = root.children[textFieldIndex] as TextField
                 node.text = response
                 (root.children[textFieldIndex + 1] as ImageView).image = when (node.text) {
-                    question.answers!![io.outputLine] -> {
+                    questionView.answers!![ioPanelView.outputLine] -> {
                         Image("checkmark.png")
                     }
                     else -> Image("x-mark.png")
                 }
             }
-            io.navigation.disableCheck()
+            ioPanelView.navigationView.disableCheck()
             disableInput()
             when(responses.numCorrect){
-                0 -> io.makeMascotSad()
-                teams.size -> io.makeMascotHappy()
-                else -> io.makeMascotNeutral()
+                0 -> ioPanelView.makeMascotSad()
+                teams.size -> ioPanelView.makeMascotHappy()
+                else -> ioPanelView.makeMascotNeutral()
             }
         }
         else{
@@ -105,8 +105,8 @@ class TeamView : View() {
                 node.text = response
                 (root.children[textFieldIndex + 1] as ImageView).image = Image("question-mark.png")
             }
-            io.makeMascotNeutral()
-            io.navigation.enableCheck()
+            ioPanelView.makeMascotNeutral()
+            ioPanelView.navigationView.enableCheck()
             enableInput()
         }
     }

@@ -10,14 +10,14 @@ import javafx.scene.text.TextAlignment
 import tornadofx.*
 import java.util.*
 
-class IOPanel : View() {
+class IOPanelView : View() {
 
     var outputLine = 0
         private set
-    val navigation: NavigationView by inject()
-    val question: QuestionView by inject()
-    val teams: TeamView by inject()
-    val scores: ScoresView by inject()
+    val navigationView: NavigationView by inject()
+    val questionView: QuestionView by inject()
+    val teamView: TeamView by inject()
+    val scoresView: ScoresView by inject()
 
     val prompt = textflow{
         textAlignment = TextAlignment.CENTER
@@ -49,11 +49,11 @@ class IOPanel : View() {
             alignment = Pos.TOP_CENTER
         }
         vb += prompt
-        vb += teams.root
+        vb += teamView.root
         vb += separator(Orientation.HORIZONTAL){
             paddingAll = 16
         }
-        vb += navigation.root
+        vb += navigationView.root
         vb += separator(Orientation.HORIZONTAL){
             paddingAll = 16
         }
@@ -61,7 +61,7 @@ class IOPanel : View() {
             font = Font(20.0)
             paddingAll = 16.0
         }
-        vb += scores.root
+        vb += scoresView.root
 
         val sp = ScrollPane().apply{
             isFitToWidth = true
@@ -82,14 +82,14 @@ class IOPanel : View() {
     }
 
     fun nextOutputLine(){
-        val size = question.answers!!.size
+        val size = questionView.answers!!.size
         outputLine = (outputLine + 1) % size
         if(outputLine < 0) outputLine += size
         (prompt.children[1] as Text).text = outputLine.english()
     }
 
     fun prevOutputLine(){
-        val size = question.answers!!.size
+        val size = questionView.answers!!.size
         outputLine = (outputLine - 1) % size
         if(outputLine < 0) outputLine += size
         (prompt.children[1] as Text).text = outputLine.english()
