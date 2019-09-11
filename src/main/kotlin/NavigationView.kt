@@ -1,4 +1,5 @@
 import javafx.geometry.Pos
+import javafx.scene.image.Image
 import javafx.scene.text.Font
 import tornadofx.*
 
@@ -6,9 +7,17 @@ class NavigationView : View() {
     val ioPanelView: IOPanelView by inject()
     val teamView: TeamView by inject()
 
-    private val prev = button("Prev") {
-        useMaxWidth = true
-        font = Font(18.0)
+    private val prev = button() {
+        graphic = hbox{
+            alignment = Pos.CENTER
+            imageview(Image("prev.png")){
+                fitWidth = 18.0
+                fitHeight = 18.0
+            }
+            label("Prev"){
+                font = Font(18.0)
+            }
+        }
         setOnAction {
             teamView.saveResponses()
             ioPanelView.prevOutputLine()
@@ -22,9 +31,17 @@ class NavigationView : View() {
             teamView.checkAnswers()
         }
     }
-    private val next = button("Next") {
-        useMaxWidth = true
-        font = Font(18.0)
+    private val next = button() {
+        graphic = hbox{
+            alignment = Pos.CENTER
+            label("Next"){
+                font = Font(18.0)
+            }
+            imageview(Image("next.png")){
+                fitWidth = 18.0
+                fitHeight = 18.0
+            }
+        }
         setOnAction {
             teamView.saveResponses()
             ioPanelView.nextOutputLine()
