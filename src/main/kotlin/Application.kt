@@ -83,7 +83,7 @@ class ApplicationView: View("Programming Mystery") {
     fun loadQuestion(){
         questionView.chooseQuestion()
         questionView.loadAnswers()
-        io.teams.loadResponses(emptyList())
+        io.teams.loadResponses()
         io.navigation.enableCheck()
     }
 
@@ -101,6 +101,7 @@ class ApplicationView: View("Programming Mystery") {
             io.teams.populateTeams(teams)
             io.scores.populateScores()
             io.question.resetResponses()
+            io.resetOutputLine()
             io.teams.loadResponses()
             io.navigation.enableCheck()
             teamPath.writeText(chooser.selectedFile.parent)

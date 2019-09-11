@@ -45,65 +45,69 @@ class TeamView : View() {
     }
 
     fun checkAnswers(){
-        var numCorrect = 0
-        teams.forEachIndexed{ index, team ->
-            val textFieldIndex = 3 * index + 1
-            val node = root.children[textFieldIndex] as TextField
-            (root.children[textFieldIndex + 1] as ImageView).image = when(node.text){
-                question.answers!![io.outputLine] -> {
-                    team.score += 1
-                    numCorrect += 1
-                    Image("checkmark.png")
-                }
-                else -> Image("x-mark.png")
-            }
-            question.questionResponses!![io.outputLine].add(node.text)
-
-        }
-        io.navigation.disableCheck()
-        io.scores.populateScores()
-        when(numCorrect){
+        saveResponses()
+        val responses = question.responses!![io.outputLine]
+        when(responses.numCorrect){
             0 -> io.makeMascotSad()
             teams.size -> io.makeMascotHappy()
             else -> io.makeMascotNeutral()
         }
+        responses.correctIndices.forEachIndexed { index, isCorrect ->
+            (root.children[3 * index + 2] as ImageView).image = when(isCorrect){
+                true -> {
+                    teams[index].score += 1
+                    Image("checkmark.png")
+                }
+                false -> Image("x-mark.png")
+            }
+        }
+        io.navigation.disableCheck()
+        disableInput()
+        io.scores.populateScores()
     }
 
-    fun loadResponses(responses: List<String> = emptyList()){
-        when(responses.isEmpty()){
-            true -> {
-                io.makeMascotNeutral()
-                root.children.forEach {
-                    if (it is ImageView) {
-                        it.image = Image("question-mark.png")
-                    } else if (it is TextField) {
-                        it.text = ""
+    fun saveResponses(){
+        val responses = question.responses!![io.outputLine]
+        responses.clearResponses()
+
+        teams.forEachIndexed { index, _ ->
+            responses.setResponse((root.children[3 * index + 1] as TextField).text, index)
+        }
+    }
+
+    fun loadResponses() {
+        val responses = question.responses!![io.outputLine]
+
+        if(responses.checked) {
+            responses.getResponses().forEachIndexed { index, response ->
+                val textFieldIndex = 3 * index + 1
+                val node = root.children[textFieldIndex] as TextField
+                node.text = response
+                (root.children[textFieldIndex + 1] as ImageView).image = when (node.text) {
+                    question.answers!![io.outputLine] -> {
+                        Image("checkmark.png")
                     }
+                    else -> Image("x-mark.png")
                 }
             }
-
-            false -> {
-                var numCorrect = 0
-                responses.forEachIndexed { index, response ->
-                    val textFieldIndex = 3 * index + 1
-                    val node = root.children[textFieldIndex] as TextField
-                    node.text = response
-
-                    (root.children[textFieldIndex + 1] as ImageView).image = when(node.text){
-                        question.answers!![io.outputLine] -> {
-                            numCorrect += 1
-                            Image("checkmark.png")
-                        }
-                        else -> Image("x-mark.png")
-
-                    }
-                }
-                when(numCorrect){
-                    0 -> io.makeMascotSad()
-                    teams.size -> io.makeMascotHappy()
-                    else -> io.makeMascotNeutral()
-                }
+            io.navigation.disableCheck()
+            disableInput()
+            when(responses.numCorrect){
+                0 -> io.makeMascotSad()
+                teams.size -> io.makeMascotHappy()
+                else -> io.makeMascotNeutral()
             }
+        }
+        else{
+            responses.getResponses().forEachIndexed { index, response ->
+                val textFieldIndex = 3 * index + 1
+                val node = root.children[textFieldIndex] as TextField
+                node.text = response
+                (root.children[textFieldIndex + 1] as ImageView).image = Image("question-mark.png")
+            }
+            io.makeMascotNeutral()
+            io.navigation.enableCheck()
+            enableInput()
         }
     }
 

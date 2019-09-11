@@ -11,12 +11,9 @@ class NavigationView : View() {
         useMaxWidth = true
         font = Font(18.0)
         setOnAction {
+            teams.saveResponses()
             io.prevOutputLine()
-            teams.loadResponses(questionView.questionResponses!![io.outputLine])
-            when(questionView.questionResponses!![io.outputLine].isNotEmpty()){
-                true -> io.navigation.disableCheck()
-                false -> io.navigation.enableCheck()
-            }
+            teams.loadResponses()
         }
     }
     private val check = button("Check") {
@@ -30,12 +27,9 @@ class NavigationView : View() {
         useMaxWidth = true
         font = Font(18.0)
         setOnAction {
+            teams.saveResponses()
             io.nextOutputLine()
-            teams.loadResponses(questionView.questionResponses!![io.outputLine])
-            when(questionView.questionResponses!![io.outputLine].isNotEmpty()){
-                true -> io.navigation.disableCheck()
-                false -> io.navigation.enableCheck()
-            }
+            teams.loadResponses()
         }
     }
 
@@ -53,11 +47,9 @@ class NavigationView : View() {
 
     fun disableCheck(){
         check.isDisable = true
-        teams.disableInput()
     }
 
     fun enableCheck(){
         check.isDisable = false
-        teams.enableInput()
     }
 }

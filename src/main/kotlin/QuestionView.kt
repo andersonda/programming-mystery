@@ -13,11 +13,14 @@ import javax.swing.filechooser.FileNameExtensionFilter
 
 class QuestionView : View() {
 
+    val teamView: TeamView by inject()
+    val ioPanel: IOPanel by inject()
+
     private var questionFile: File? = null
     private val questionCode = RSyntaxTextArea(50, 50)
     var answers: List<String>? = null
         private set
-    var questionResponses: MutableList<MutableList<String>>? = null
+    var responses: List<Responses>? = null
         private set
 
     override val root = vbox{
@@ -72,12 +75,16 @@ class QuestionView : View() {
         javac(questionFile!!)
         val isInPackage = questionFile!!.readText().startsWith("package ${questionFile!!.parentFile.name}")
         answers = java(questionFile!!, isInPackage).lines().dropLastWhile { it.isBlank() } // remove last blank line
-        questionResponses = MutableList(answers!!.size){ mutableListOf<String>() }
+        resetResponses()
+        ioPanel.resetOutputLine()
+        teamView.loadResponses()
         println(answers)
     }
 
     fun resetResponses(){
-        questionResponses = MutableList(answers!!.size){ mutableListOf<String>() }
+        responses = List(answers!!.size){
+            Responses(answers!![it], teamView.teams.size)
+        }
     }
 
     private fun javac(file: File) = "javac ${file.name}".runCommand(file.parentFile)

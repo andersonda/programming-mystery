@@ -95,6 +95,11 @@ class IOPanel : View() {
         (prompt.children[1] as Text).text = outputLine.english()
     }
 
+    fun resetOutputLine() {
+        outputLine = 0
+        (prompt.children[1] as Text).text = outputLine.english()
+    }
+
     fun makeMascotHappy() = image.apply {
         image = Image("incognito-512-happy.png")
     }
