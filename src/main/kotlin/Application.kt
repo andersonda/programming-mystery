@@ -1,3 +1,4 @@
+import javafx.beans.value.ChangeListener
 import javafx.scene.control.SplitPane
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
@@ -7,6 +8,9 @@ import java.io.File
 import javax.swing.JFileChooser
 import javax.swing.filechooser.FileNameExtensionFilter
 import kotlin.system.exitProcess
+import javafx.beans.value.ObservableValue
+
+
 
 class Application: App(ApplicationView::class)
 
@@ -74,10 +78,9 @@ class ApplicationView: View("Programming Mystery") {
         sp += ioPanelView.root
         currentStage?.isMaximized = true
 
-        // TODO: this is a hacky solution to get the divider to the correct position. should be revisited
-        runLater(.5.seconds) {
-            sp.setDividerPositions(.80)
-        }
+        val changeListener = ChangeListener<Number> { _, _, _ -> sp.setDividerPositions(0.80) }
+        sp.widthProperty().addListener(changeListener)
+        sp.heightProperty().addListener(changeListener)
     }
 
     fun loadQuestion(){
