@@ -7,7 +7,7 @@ class NavigationView : View() {
     val ioPanelView: IOPanelView by inject()
     val teamView: TeamView by inject()
 
-    private val prev = button() {
+    private val prev = button {
         graphic = hbox{
             alignment = Pos.CENTER
             imageview(Image("prev.png")){
@@ -31,7 +31,7 @@ class NavigationView : View() {
             teamView.checkAnswers()
         }
     }
-    private val next = button() {
+    private val next = button {
         graphic = hbox{
             alignment = Pos.CENTER
             label("Next"){

@@ -8,9 +8,6 @@ import java.io.File
 import javax.swing.JFileChooser
 import javax.swing.filechooser.FileNameExtensionFilter
 import kotlin.system.exitProcess
-import javafx.beans.value.ObservableValue
-
-
 
 class Application: App(ApplicationView::class)
 
@@ -35,16 +32,15 @@ class ApplicationView: View("Programming Mystery") {
                 }
             }
             menu("View") {
-                menu("Answers"){
-                    item("All Answers").setOnAction {
-                        val view = AnswersView()
-                        view.loadAllAnswers()
-                        view.openWindow()
+                menu("Answers") {
+                    item("Current") {
+                        accelerator = KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_ANY)
+                        setOnAction {
+                            questionView.viewAnswer()
+                        }
                     }
-                    item("Current Answer").setOnAction {
-                        val view = AnswersView()
-                        view.loadAnswer(ioPanelView.outputLine, questionView.answers!![ioPanelView.outputLine])
-                        view.openWindow()
+                    item("All").setOnAction {
+                        questionView.viewAllAnswers()
                     }
                 }
                 menu("Zoom") {
@@ -61,7 +57,6 @@ class ApplicationView: View("Programming Mystery") {
                         }
                     }
                     item("Reset") {
-                        accelerator = KeyCodeCombination(KeyCode.BACK_SPACE, KeyCombination.CONTROL_ANY)
                         setOnAction {
                             questionView.resize(0)
                         }

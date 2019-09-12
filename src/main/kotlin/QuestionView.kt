@@ -81,6 +81,14 @@ class QuestionView : View() {
         println(answers)
     }
 
+    fun viewAnswer(index: Int = ioPanelView.outputLine){
+        val comment = "// ${index.english().capitalize()} line of output: ${answers!![index]}"
+        questionCode.text += "\n$comment"
+        questionCode.isEditable = true
+    }
+
+    fun viewAllAnswers() = answers!!.indices.forEach{ viewAnswer(it) }
+
     fun resetResponses(){
         responses = List(answers!!.size){
             Responses(answers!![it], teamView.teams.size)
