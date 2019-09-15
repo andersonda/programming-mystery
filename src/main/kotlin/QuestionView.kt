@@ -41,7 +41,7 @@ class QuestionView : View() {
     }
 
     fun chooseQuestion() {
-        val codePath = DB.getCodePath()
+        val codePath = DB.getPropertyValue(DB.Names.CODE_PATH)
 
         val chooser = JFileChooser()
         chooser.dialogTitle = "Open Java File"
@@ -56,7 +56,7 @@ class QuestionView : View() {
 
         questionFile = chooser.selectedFile
         questionCode.text = questionFile!!.readText()
-        DB.setCodePath(questionFile!!.parent)
+        DB.setPropertyValue(DB.Names.CODE_PATH, questionFile!!.parent)
     }
 
     fun resize(direction: Int){

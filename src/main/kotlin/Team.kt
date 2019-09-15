@@ -1,1 +1,1 @@
-class Team(val name: String, var score: Int)
+class Team(val id: Int, val name: String, var score: Int)

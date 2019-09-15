@@ -24,14 +24,9 @@ class TeamView : View() {
             ColumnConstraints().apply { hgrow = Priority.ALWAYS })
     }
 
-    init {
-        populateTeams(listOf("Team 1", "Team 2", "Team 3" ,"Team 4"))
-    }
-
-    fun populateTeams(newTeams:List<String>){
+    fun populateTeams(newTeams:List<Team>){
         root.removeAllRows()
-        teams = newTeams.map { Team(it, 0) }
-
+        teams = newTeams
         teams.forEachIndexed {index, team ->
             val font = Font(18.0)
             val image = ImageView("question-mark.png")
@@ -55,7 +50,9 @@ class TeamView : View() {
         responses.correctIndices.forEachIndexed { index, isCorrect ->
             (root.children[3 * index + 2] as ImageView).image = when(isCorrect){
                 true -> {
-                    teams[index].score += 1
+                    val team = teams[index]
+                    team.score += 1
+                    DB.updateScore(team.id, team.score)
                     Image("checkmark.png")
                 }
                 false -> Image("x-mark.png")

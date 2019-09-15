@@ -76,6 +76,8 @@ class ApplicationView: View("Programming Mystery") {
         val changeListener = ChangeListener<Number> { _, _, _ -> sp.setDividerPositions(0.80) }
         sp.widthProperty().addListener(changeListener)
         sp.heightProperty().addListener(changeListener)
+
+        loadTeams()
     }
 
     fun loadQuestion(){
@@ -86,23 +88,12 @@ class ApplicationView: View("Programming Mystery") {
     }
 
     fun loadTeams(){
-        val teamPath = File("team-path.txt")
-        if(!teamPath.exists()){
-            teamPath.writeText("")
-        }
-        val chooser = JFileChooser()
-        chooser.dialogTitle = "Open Team Names"
-        chooser.fileFilter = FileNameExtensionFilter("TXT files", "txt")
-        chooser.currentDirectory = File(teamPath.readText())
-        if(chooser.showOpenDialog(null) != JFileChooser.CANCEL_OPTION) {
-            val teams = chooser.selectedFile.readText().lines()
-            ioPanelView.teamView.populateTeams(teams)
-            ioPanelView.scoresView.populateScores()
-            ioPanelView.questionView.resetResponses()
-            ioPanelView.resetOutputLine()
-            ioPanelView.teamView.loadResponses()
-            ioPanelView.navigationView.enableCheck()
-            teamPath.writeText(chooser.selectedFile.parent)
-        }
+        val teams = DB.getTeams(DB.getPropertyValue(DB.Names.TEAM_GROUP))
+        ioPanelView.teamView.populateTeams(teams)
+        ioPanelView.scoresView.populateScores()
+        ioPanelView.questionView.resetResponses()
+        ioPanelView.resetOutputLine()
+        ioPanelView.teamView.loadResponses()
+        ioPanelView.navigationView.enableCheck()
     }
 }
