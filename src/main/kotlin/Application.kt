@@ -24,7 +24,9 @@ class ApplicationView: View("Programming Mystery") {
                         loadQuestion()
                     }
                     item("Teams").setOnAction {
-                        loadTeams()
+                        val selectTeamsView = SelectTeamsView()
+                        selectTeamsView.title = "Select Teams"
+                        selectTeamsView.openWindow()
                     }
                 }
                 item("Quit").setOnAction {

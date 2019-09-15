@@ -65,6 +65,16 @@ object DB {
         }
     }
 
+    fun getTeamGroups(): List<String> {
+        return transaction {
+            Teams
+                .slice(Teams.group)
+                .selectAll()
+                .withDistinct()
+                .map { it[Teams.group] }
+        }
+    }
+
     fun updateScore(id: Int, newScore: Int){
         transaction {
             Teams.update({ Teams.id eq id }){
@@ -87,6 +97,24 @@ object DB {
             val teams = listOf("Team 1", "Team 2", "Team 3", "Team 4", "Team 5", "Team 6")
             Teams.batchInsert(teams){ name ->
                 this[Teams.group] = "default"
+                this[Teams.name] = name
+                this[Teams.score] = 0
+            }
+        }
+        if(Teams.select { Teams.group eq "sample 1" }.empty()){
+            val teams = listOf("polar bears", "grupo dos", "nike", "coders", "matrix", "unicorn")
+
+            Teams.batchInsert(teams){ name ->
+                this[Teams.group] = "sample 1"
+                this[Teams.name] = name
+                this[Teams.score] = 0
+            }
+        }
+        if(Teams.select { Teams.group eq "sample 2" }.empty()){
+            val teams = listOf("elves", "hobbits", "dwarves", "men")
+
+            Teams.batchInsert(teams){ name ->
+                this[Teams.group] = "sample 2"
                 this[Teams.name] = name
                 this[Teams.score] = 0
             }

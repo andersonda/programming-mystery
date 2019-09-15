@@ -77,6 +77,7 @@ class IOPanelView : View() {
         properties.load(Application::class.java.getResourceAsStream("/version.properties"))
         root += label("Version ${properties.getProperty("version")}"){
             font = Font(10.0)
+            padding = insets(0.0, 0.0, 16.0, 0.0)
         }
         root += sp
     }
