@@ -41,14 +41,12 @@ class QuestionView : View() {
     }
 
     fun chooseQuestion() {
-        val codePath = File("code-path.txt")
-        if(!codePath.exists()){
-            codePath.writeText("")
-        }
+        val codePath = DB.getCodePath()
+
         val chooser = JFileChooser()
         chooser.dialogTitle = "Open Java File"
         chooser.fileFilter = FileNameExtensionFilter("JAVA files", "java")
-        chooser.currentDirectory = File(codePath.readText())
+        chooser.currentDirectory = File(codePath)
         if(chooser.showOpenDialog(null) == JFileChooser.CANCEL_OPTION){
             if(questionCode.text.isBlank()){
                 exitProcess(0)
@@ -58,7 +56,7 @@ class QuestionView : View() {
 
         questionFile = chooser.selectedFile
         questionCode.text = questionFile!!.readText()
-        codePath.writeText(questionFile!!.parent)
+        DB.setCodePath(questionFile!!.parent)
     }
 
     fun resize(direction: Int){
