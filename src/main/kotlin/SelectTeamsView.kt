@@ -7,8 +7,7 @@ import javafx.scene.text.Font
 import tornadofx.*
 
 class SelectTeamsView : View("My View") {
-    val teamView: TeamView by inject()
-    val scoresView: ScoresView by inject()
+    val applicationView: ApplicationView by inject()
 
     override val root = vbox{
         alignment = Pos.CENTER
@@ -56,9 +55,8 @@ class SelectTeamsView : View("My View") {
 
     private fun setTeamsAndExit(){
         val selected = groups.selectedItem!!
-        teamView.populateTeams(DB.getTeams(selected))
-        scoresView.populateScores()
         DB.setPropertyValue(DB.Names.TEAM_GROUP, selected)
+        applicationView.loadTeams()
         currentStage?.close()
     }
 }
