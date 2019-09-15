@@ -101,23 +101,5 @@ object DB {
                 this[Teams.score] = 0
             }
         }
-        if(Teams.select { Teams.group eq "sample 1" }.empty()){
-            val teams = listOf("polar bears", "grupo dos", "nike", "coders", "matrix", "unicorn")
-
-            Teams.batchInsert(teams){ name ->
-                this[Teams.group] = "sample 1"
-                this[Teams.name] = name
-                this[Teams.score] = 0
-            }
-        }
-        if(Teams.select { Teams.group eq "sample 2" }.empty()){
-            val teams = listOf("elves", "hobbits", "dwarves", "men")
-
-            Teams.batchInsert(teams){ name ->
-                this[Teams.group] = "sample 2"
-                this[Teams.name] = name
-                this[Teams.score] = 0
-            }
-        }
     }
 }
