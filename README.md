@@ -8,8 +8,12 @@ Arbitrary Java files can be selected at run-time using the `File -> Load -> Code
 ##### Syntax Highlighting
 The selected Java file is displayed in an IDE-like text area that supports syntax highlighting and font size changing (the latter of which is currently buggy).
 
-##### Team selection
+##### Team Management
 Team names and scores are stored in a SQLite database. Multiple sets of teams can be switched between by using the `File -> Load -> Teams` menu option.
+
+The `Edit -> New Teams` menu option can be used to create a new set of teams.
+
+Currently, team and score editing and team removal are not supported (but are planned features). In the mean time, the database created by Programming Mystery can be edited manually using a database editing tool such as [DB Browser for SQLite](https://sqlitebrowser.org/). The database is located at `<user.home>/programming-mystery/data.db` and is created automatically upon first execution.
 
 ##### Response Scoring
 For each line of output, each team can enter their answer. Pressing the `Check` button will grade the responses for the current output line and provide feedback (check-mark for correct, x-mark for incorrect). The `Next` and `Prev` buttons can be used to cycle through the program output line questions. Overall scores are also kept track of and displayed.
