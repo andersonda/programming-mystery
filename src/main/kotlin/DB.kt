@@ -65,6 +65,16 @@ object DB {
         }
     }
 
+    fun createTeams(group: String, teams: List<String>){
+        transaction {
+            Teams.batchInsert(teams){ name ->
+                this[Teams.group] = group
+                this[Teams.name] = name
+                this[Teams.score] = 0
+            }
+        }
+    }
+
     fun getTeamGroups(): List<String> {
         return transaction {
             Teams

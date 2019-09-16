@@ -6,7 +6,7 @@ import javafx.scene.image.Image
 import javafx.scene.text.Font
 import tornadofx.*
 
-class SelectTeamsView : View("My View") {
+class SelectTeamsView : View("Select Teams") {
     val applicationView: ApplicationView by inject()
 
     override val root = vbox{

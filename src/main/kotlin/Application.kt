@@ -24,13 +24,20 @@ class ApplicationView: View("Programming Mystery") {
                         loadQuestion()
                     }
                     item("Teams").setOnAction {
-                        val selectTeamsView = SelectTeamsView()
-                        selectTeamsView.title = "Select Teams"
-                        selectTeamsView.openWindow()
+                        SelectTeamsView().apply {
+                            openWindow()
+                        }
                     }
                 }
                 item("Quit").setOnAction {
                     exitProcess(0)
+                }
+            }
+            menu("Edit"){
+                item("New Teams").setOnAction {
+                    CreateTeamsView().apply {
+                        openWindow()
+                    }
                 }
             }
             menu("View") {
