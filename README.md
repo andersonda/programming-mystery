@@ -19,7 +19,7 @@ Currently, team and score editing and team removal are not supported (but are pl
 For each line of output, each team can enter their answer. Pressing the `Check` button will grade the responses for the current output line and provide feedback (check-mark for correct, x-mark for incorrect). The `Next` and `Prev` buttons can be used to cycle through the program output line questions. Overall scores are also kept track of and displayed.
 
 ##### Answer viewing
-The answer to the current line of output can be viewed by using the `View -> Answers -> Current` menu option. To view answers for all lines output by the current Java file, the `View -> Answers -> All` menu option can be used.
+The answer to the current line of output can be viewed by using the `View -> Answers -> Current` menu option. To view answers for all lines output by the current Java file, the `View -> Answers -> All` menu option can be used. `View -> Answers -> None` can be used to hide all currently visible answers.
 
 ## Sample Problems
 

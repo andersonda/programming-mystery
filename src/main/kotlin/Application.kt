@@ -4,9 +4,6 @@ import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import javafx.scene.input.KeyCombination
 import tornadofx.*
-import java.io.File
-import javax.swing.JFileChooser
-import javax.swing.filechooser.FileNameExtensionFilter
 import kotlin.system.exitProcess
 
 class Application: App(ApplicationView::class)
@@ -43,13 +40,15 @@ class ApplicationView: View("Programming Mystery") {
             menu("View") {
                 menu("Answers") {
                     item("Current") {
-                        accelerator = KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_ANY)
                         setOnAction {
                             questionView.viewAnswer()
                         }
                     }
                     item("All").setOnAction {
                         questionView.viewAllAnswers()
+                    }
+                    item("None").setOnAction {
+                        questionView.removeAllAnswers()
                     }
                 }
                 menu("Zoom") {
@@ -97,12 +96,13 @@ class ApplicationView: View("Programming Mystery") {
     }
 
     fun loadTeams(){
-        val teams = DB.getTeams(DB.getPropertyValue(DB.Names.TEAM_GROUP))
+        val teams = DB.getTeams(DB.getPropertyValue(DB.Names.LAST_CLASS))
         ioPanelView.teamView.populateTeams(teams)
         ioPanelView.scoresView.populateScores()
         ioPanelView.questionView.resetResponses()
         ioPanelView.resetOutputLine()
         ioPanelView.teamView.loadResponses()
         ioPanelView.navigationView.enableCheck()
+        questionView.removeAllAnswers()
     }
 }

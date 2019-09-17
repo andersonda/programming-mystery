@@ -1,6 +1,5 @@
 import javafx.geometry.Insets
 import javafx.geometry.Pos
-import javafx.scene.control.SelectionMode
 import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
 import javafx.scene.image.Image
@@ -24,7 +23,7 @@ class CreateTeamsView : View("Create Teams") {
         }
     }
 
-    val groupName = TextField().apply{
+    val className = TextField().apply{
         font = Font(18.0)
     }
     val teams = TextArea().apply{
@@ -34,11 +33,11 @@ class CreateTeamsView : View("Create Teams") {
 
     init {
         root += borderpane(){
-            top = label("Group Name"){
+            top = label("Class Name"){
                 padding = Insets(0.0, 0.0, 16.0, 0.0)
                 font = Font(18.0)
             }
-            center = groupName
+            center = className
         }
         root += borderpane() {
             padding = Insets(32.0, 0.0, 0.0, 0.0)
@@ -52,10 +51,10 @@ class CreateTeamsView : View("Create Teams") {
             padding = Insets(16.0, 0.0, 0.0, 0.0)
             alignment = Pos.BOTTOM_RIGHT
             button("OK").setOnAction {
-                val group = groupName.text
+                val `class` = className.text
                 val teams = teams.text.split(",", ", ").map { it.trim() }
-                DB.setPropertyValue(DB.Names.TEAM_GROUP, group)
-                DB.createTeams(group, teams)
+                DB.setPropertyValue(DB.Names.LAST_CLASS, `class`)
+                DB.createTeams(`class`, teams)
                 applicationView.loadTeams()
                 currentStage?.close()
             }

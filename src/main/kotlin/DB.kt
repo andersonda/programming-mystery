@@ -7,7 +7,7 @@ object DB {
 
     object Names {
         const val CODE_PATH = "code path"
-        const val TEAM_GROUP = "team group"
+        const val LAST_CLASS = "last class"
     }
 
     object Properties: Table(){
@@ -17,7 +17,7 @@ object DB {
 
     object Teams : Table(){
         val id = integer("id").autoIncrement().primaryKey()
-        val group = text("group")
+        val `class` = text("class")
         val name = text("name")
         val score = integer("score")
     }
@@ -31,7 +31,7 @@ object DB {
         transaction {
             SchemaUtils.createMissingTablesAndColumns(Properties, Teams)
             createProperty(Names.CODE_PATH, System.getProperty("user.home"))
-            createProperty(Names.TEAM_GROUP, "default")
+            createProperty(Names.LAST_CLASS, "default")
             createDefaultTeams()
         }
     }
@@ -56,32 +56,32 @@ object DB {
         }
     }
 
-    fun getTeams(group: String): List<Team> {
+    fun getTeams(`class`: String): List<Team> {
         return transaction {
             Teams
                 .slice(Teams.id, Teams.name, Teams.score)
-                .select { Teams.group eq group }
+                .select { Teams.`class` eq `class` }
                 .map { Team(it[Teams.id], it[Teams.name], it[Teams.score]) }
         }
     }
 
-    fun createTeams(group: String, teams: List<String>){
+    fun createTeams(`class`: String, teams: List<String>){
         transaction {
             Teams.batchInsert(teams){ name ->
-                this[Teams.group] = group
+                this[Teams.`class`] = `class`
                 this[Teams.name] = name
                 this[Teams.score] = 0
             }
         }
     }
 
-    fun getTeamGroups(): List<String> {
+    fun getClasses(): List<String> {
         return transaction {
             Teams
-                .slice(Teams.group)
+                .slice(Teams.`class`)
                 .selectAll()
                 .withDistinct()
-                .map { it[Teams.group] }
+                .map { it[Teams.`class`] }
         }
     }
 
@@ -103,10 +103,10 @@ object DB {
     }
 
     private fun createDefaultTeams(){
-        if(Teams.select { Teams.group eq "default" }.empty()){
+        if(Teams.select { Teams.`class` eq "default" }.empty()){
             val teams = listOf("Team 1", "Team 2", "Team 3", "Team 4", "Team 5", "Team 6")
             Teams.batchInsert(teams){ name ->
-                this[Teams.group] = "default"
+                this[Teams.`class`] = "default"
                 this[Teams.name] = name
                 this[Teams.score] = 0
             }

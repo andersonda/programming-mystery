@@ -87,6 +87,13 @@ class QuestionView : View() {
 
     fun viewAllAnswers() = answers!!.indices.forEach{ viewAnswer(it) }
 
+    fun removeAllAnswers(){
+        questionCode.text = questionCode.text.lines()
+            .toMutableList()
+            .dropLastWhile { it.startsWith("//") }
+            .joinToString(separator = "\n")
+    }
+
     fun resetResponses(){
         responses = List(answers!!.size){
             Responses(answers!![it], teamView.teams.size)

@@ -1,5 +1,4 @@
 import javafx.geometry.Insets
-import javafx.geometry.Orientation
 import javafx.geometry.Pos
 import javafx.scene.control.SelectionMode
 import javafx.scene.image.Image
@@ -41,7 +40,7 @@ class SelectTeamsView : View("Select Teams") {
 
     init {
         root += groups
-        groups.items = DB.getTeamGroups().asObservable()
+        groups.items = DB.getClasses().asObservable()
         groups.selectionModel.select(0)
 
         root += hbox {
@@ -55,7 +54,7 @@ class SelectTeamsView : View("Select Teams") {
 
     private fun setTeamsAndExit(){
         val selected = groups.selectedItem!!
-        DB.setPropertyValue(DB.Names.TEAM_GROUP, selected)
+        DB.setPropertyValue(DB.Names.LAST_CLASS, selected)
         applicationView.loadTeams()
         currentStage?.close()
     }
