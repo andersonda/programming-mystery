@@ -33,5 +33,9 @@ Next, you have two options to run this software:
 1. Import this project into IntelliJ IDEA and build and run it within the IDE
 2. Download an executable jar from the [releases](https://github.com/andersonda/programming-mystery/releases) page of this repository
 
+## Planned Features
+
+A roadmap of planned releases can be found [here](https://github.com/andersonda/programming-mystery/blob/master/ROADMAP.md)
+
 ## Acknowledgements
 Special thanks to Alex Anderson for contributing image editing work!
